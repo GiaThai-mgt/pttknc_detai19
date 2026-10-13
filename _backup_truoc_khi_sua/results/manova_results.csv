@@ -1,0 +1,5 @@
+Test_Statistic,Value,F_Value,Num_DF,Den_DF,Pr_F,Conclusion
+Wilks' lambda,0.19373,3472.0345,12,32756.0,0.0000e+00,Bác bỏ H0
+Pillai's trace,0.995769,2706.8326,12,32758.0,0.0000e+00,Bác bỏ H0
+Hotelling-Lawley trace,3.183653,4344.9661,12,25473.8,0.0000e+00,Bác bỏ H0
+Roy's greatest root,2.839123,7750.3332,6,16379.0,0.0000e+00,Bác bỏ H0

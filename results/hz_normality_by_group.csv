@@ -1,0 +1,4 @@
+Position_Group,N,HZ_Statistic,p_value,Normal,Conclusion,p_display
+Defender,6225,6110.7726,0.0000e+00,False,KHÔNG tuân theo chuẩn đa biến,< 0.001
+Midfielder,7037,6915.0477,0.0000e+00,False,KHÔNG tuân theo chuẩn đa biến,< 0.001
+Forward,3124,3045.4217,0.0000e+00,False,KHÔNG tuân theo chuẩn đa biến,< 0.001
