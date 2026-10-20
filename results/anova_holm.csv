@@ -1,0 +1,7 @@
+Variable,ANOVA_F,p_raw,p_holm,Reject_Holm (alpha=0.05),Eta_Squared
+Passing,2094.0942,0.0000e+00,0.0000e+00,True,0.2047
+Defending,8922.3655,0.0000e+00,0.0000e+00,True,0.523
+Vision,4082.8973,0.0000e+00,0.0000e+00,True,0.3341
+Shooting,8552.3664,0.0000e+00,0.0000e+00,True,0.5125
+Pace,397.9736,1.8050e-169,3.6099e-169,True,0.0466
+Stamina,145.6867,1.9448e-63,1.9448e-63,True,0.0176

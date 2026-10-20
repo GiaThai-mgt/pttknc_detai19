@@ -1,185 +1,149 @@
-Chưa tìm thấy 'C:\Users\maigi\OneDrive\Desktop\huit_data\pttknc_detai19\fifa_cleaned_no_outliers.csv'. Đang tự động gọi module FiFa_clean.py để làm sạch...
-================================================================================
-GIAI ĐOẠN 1: TIỀN XỬ LÝ DỮ LIỆU BAN ĐẦU
-================================================================================
-Reading dataset from: C:\Users\maigi\OneDrive\Desktop\huit_data\pttknc_detai19\archive\Fifa 23 Players Data.csv
-1. Tổng số dòng dữ liệu thô ban đầu: 18,539
-2. Loại bỏ giá trị khuyết thiếu (dropna): loại 0 dòng (còn lại 18,539 dòng)
-3. Loại bỏ thủ môn (GK): loại 2,061 dòng (còn lại 16,478 dòng)
-4. Loại bỏ vị trí không thuộc 3 nhóm chính: loại 0 dòng (còn lại 16,478 dòng)
-
---- Phân bố số lượng mẫu theo từng nhóm (trước khi lọc ngoại lai): ---
-Position_Group
-Midfielder    7058
-Defender      6273
-Forward       3147
-Name: count, dtype: int64
-
-================================================================================
-GIAI ĐOẠN 2: PHÁT HIỆN & LOẠI BỎ NGOẠI LAI ĐA BIẾN (MAHALANOBIS)
-================================================================================
-1. Số chiều p: 6
-2. Mức ý nghĩa alpha: 0.001
-3. Ngưỡng tới hạn Chi-bình phương (threshold): 22.4577
-4. Số lượng ngoại lai Mahalanobis bị loại: 92 dòng
-5. Số dòng dữ liệu sạch còn lại: 16,386 dòng, 9 cột
-
---- BẢNG TỔNG HỢP SỐ LƯỢNG MẪU BỊ LOẠI QUA TỪNG BƯỚC: ---
-                                            Bước xử lý  Số dòng còn lại  Số dòng bị loại  Tỷ lệ loại trên tổng (%)
-                                1. Dữ liệu thô ban đầu            18539                0                      0.00
-                    2. Loại bỏ giá trị khuyết (dropna)            18539                0                      0.00
-                               3. Loại bỏ thủ môn (GK)            16478             2061                     11.12
-                     4. Loại vị trí ngoài 3 nhóm chính            16478                0                      0.00
-5. Lọc ngoại lai Mahalanobis (chi2, df=6, alpha=0.001)            16386               92                      0.50
-
-=> Đã lưu bảng tổng hợp bước làm sạch vào: C:\Users\maigi\OneDrive\Desktop\huit_data\pttknc_detai19\results\cleaning_summary.csv
-=> Đã lưu tập dữ liệu sạch vào: C:\Users\maigi\OneDrive\Desktop\huit_data\pttknc_detai19\fifa_cleaned_no_outliers.csv
-================================================================================
-Tổng số quan trắc: 16,386 cầu thủ.
+Nạp dữ liệu sạch từ file: C:\Users\maigi\Downloads\pttknc_detai19_Da_sua_HZ\pttknc_detai19\fifa_cleaned_no_outliers.csv
+Tổng số quan trắc: 16,275 cầu thủ.
 
 ================================================================================
 MỤC 3.2: TÍNH TOÁN ĐẶC TRƯNG MẪU VÀ KIỂM ĐỊNH CÁC GIẢ ĐỊNH THỐNG KÊ
 ================================================================================
 
->>> ĐẶC TRƯNG THỐNG KÊ MẪU - [NHÓM DEFENDER] (N = 6,225) <<<
+>>> ĐẶC TRƯNG THỐNG KÊ MẪU - [NHÓM DEFENDER] (N = 6,182) <<<
 
 --- a. Vector trung bình mẫu (Mean Vector):
-Passing      53.0280
-Defending    63.9476
-Vision       47.3952
-Shooting     40.5022
-Pace         65.6467
-Stamina      68.0392
+Passing      52.9735
+Defending    63.8793
+Vision       47.3512
+Shooting     40.4623
+Pace         65.6037
+Stamina      68.0037
 
 --- b. Ma trận hiệp phương sai mẫu S (Covariance Matrix):
            Passing  Defending    Vision  Shooting      Pace   Stamina
-Passing    92.5654    35.0135   98.9949   83.3590   43.1358   48.8628
-Defending  35.0135    51.5136   29.2786   24.8974   -5.1270   18.6338
-Vision     98.9949    29.2786  140.2477   97.5175   47.7466   53.3280
-Shooting   83.3590    24.8974   97.5175  120.9727   39.8307   50.0785
-Pace       43.1358    -5.1270   47.7466   39.8307  130.4875   52.1499
-Stamina    48.8628    18.6338   53.3280   50.0785   52.1499  105.4650
+Passing    92.4067    34.7844   98.8270   83.2079   42.9152   48.7427
+Defending  34.7844    51.1480   29.1278   24.7546   -5.4690   18.4682
+Vision     98.8270    29.1278  140.0545   97.3327   47.5781   53.1776
+Shooting   83.2079    24.7546   97.3327  120.9369   39.6676   49.9496
+Pace       42.9152    -5.4690   47.5781   39.6676  130.4732   52.1527
+Stamina    48.7427    18.4682   53.1776   49.9496   52.1527  105.5973
 
 --- c. Ma trận tương quan mẫu R (Correlation Matrix):
            Passing  Defending  Vision  Shooting    Pace  Stamina
-Passing     1.0000     0.5070  0.8688    0.7877  0.3925   0.4945
-Defending   0.5070     1.0000  0.3445    0.3154 -0.0625   0.2528
-Vision      0.8688     0.3445  1.0000    0.7487  0.3529   0.4385
-Shooting    0.7877     0.3154  0.7487    1.0000  0.3170   0.4434
-Pace        0.3925    -0.0625  0.3529    0.3170  1.0000   0.4445
-Stamina     0.4945     0.2528  0.4385    0.4434  0.4445   1.0000
+Passing     1.0000     0.5060  0.8687    0.7871  0.3908   0.4934
+Defending   0.5060     1.0000  0.3441    0.3147 -0.0669   0.2513
+Vision      0.8687     0.3441  1.0000    0.7479  0.3520   0.4373
+Shooting    0.7871     0.3147  0.7479    1.0000  0.3158   0.4420
+Pace        0.3908    -0.0669  0.3520    0.3158  1.0000   0.4443
+Stamina     0.4934     0.2513  0.4373    0.4420  0.4443   1.0000
 
---- d. Phương sai tổng quát (Generalized Variance |S|): 3.4193e+10
+--- d. Phương sai tổng quát (Generalized Variance |S|): 3.4091e+10
 
->>> ĐẶC TRƯNG THỐNG KÊ MẪU - [NHÓM MIDFIELDER] (N = 7,037) <<<
+>>> ĐẶC TRƯNG THỐNG KÊ MẪU - [NHÓM MIDFIELDER] (N = 6,986) <<<
 
 --- a. Vector trung bình mẫu (Mean Vector):
-Passing      62.5883
-Defending    50.5644
-Vision       63.2772
-Shooting     57.7625
-Pace         69.6882
-Stamina      68.1832
+Passing      62.5186
+Defending    50.5066
+Vision       63.2005
+Shooting     57.6962
+Pace         69.6474
+Stamina      68.1191
 
 --- b. Ma trận hiệp phương sai mẫu S (Covariance Matrix):
            Passing  Defending   Vision  Shooting     Pace   Stamina
-Passing    59.8520    48.2276  60.6763   54.0505   0.1523   41.0788
-Defending  48.2276   203.3559  45.2033    8.7829 -56.6880   86.6546
-Vision     60.6763    45.2033  73.9184   57.0367   1.2169   42.7690
-Shooting   54.0505     8.7829  57.0367   85.8607  23.8918   36.6028
-Pace        0.1523   -56.6880   1.2169   23.8918  97.9559   10.4846
-Stamina    41.0788    86.6546  42.7690   36.6028  10.4846  137.7136
+Passing    59.5525    47.8996  60.3069   53.7773  -0.1614   40.7500
+Defending  47.8996   202.7903  44.8615    8.5158 -56.9287   86.4961
+Vision     60.3069    44.8615  73.4643   56.6728   0.8534   42.4367
+Shooting   53.7773     8.5158  56.6728   85.6280  23.6333   36.2813
+Pace       -0.1614   -56.9287   0.8534   23.6333  97.9586   10.3036
+Stamina    40.7500    86.4961  42.4367   36.2813  10.3036  137.7092
 
 --- c. Ma trận tương quan mẫu R (Correlation Matrix):
            Passing  Defending  Vision  Shooting    Pace  Stamina
-Passing     1.0000     0.4371  0.9122    0.7540  0.0020   0.4525
-Defending   0.4371     1.0000  0.3687    0.0665 -0.4016   0.5178
-Vision      0.9122     0.3687  1.0000    0.7159  0.0143   0.4239
-Shooting    0.7540     0.0665  0.7159    1.0000  0.2605   0.3366
-Pace        0.0020    -0.4016  0.0143    0.2605  1.0000   0.0903
-Stamina     0.4525     0.5178  0.4239    0.3366  0.0903   1.0000
+Passing     1.0000     0.4359  0.9118    0.7531 -0.0021   0.4500
+Defending   0.4359     1.0000  0.3675    0.0646 -0.4039   0.5176
+Vision      0.9118     0.3675  1.0000    0.7145  0.0101   0.4219
+Shooting    0.7531     0.0646  0.7145    1.0000  0.2580   0.3341
+Pace       -0.0021    -0.4039  0.0101    0.2580  1.0000   0.0887
+Stamina     0.4500     0.5176  0.4219    0.3341  0.0887   1.0000
 
---- d. Phương sai tổng quát (Generalized Variance |S|): 2.0995e+10
+--- d. Phương sai tổng quát (Generalized Variance |S|): 2.0868e+10
 
->>> ĐẶC TRƯNG THỐNG KÊ MẪU - [NHÓM FORWARD] (N = 3,124) <<<
+>>> ĐẶC TRƯNG THỐNG KÊ MẪU - [NHÓM FORWARD] (N = 3,107) <<<
 
 --- a. Vector trung bình mẫu (Mean Vector):
-Passing      55.0688
-Defending    31.4894
-Vision       57.2538
-Shooting     65.2334
-Pace         71.5074
-Stamina      64.3499
+Passing      55.0212
+Defending    31.4561
+Vision       57.2086
+Shooting     65.1831
+Pace         71.4706
+Stamina      64.3061
 
 --- b. Ma trận hiệp phương sai mẫu S (Covariance Matrix):
            Passing  Defending   Vision  Shooting      Pace   Stamina
-Passing    84.6494    51.6877  76.9656   48.2670   28.1665   42.0640
-Defending  51.6877    88.4997  47.7976   25.6209    9.9300   38.4403
-Vision     76.9656    47.7976  88.0806   44.9756   22.5215   42.1090
-Shooting   48.2670    25.6209  44.9756   52.1572    7.2953   35.9411
-Pace       28.1665     9.9300  22.5215    7.2953  102.3128   32.4164
-Stamina    42.0640    38.4403  42.1090   35.9411   32.4164  119.8990
+Passing    84.5694    51.4787  76.9003   48.0978   27.9279   41.8853
+Defending  51.4787    87.8257  47.6106   25.4818    9.7631   38.2474
+Vision     76.9003    47.6106  88.0325   44.8172   22.2869   41.7948
+Shooting   48.0978    25.4818  44.8172   51.9603    7.0310   35.7453
+Pace       27.9279     9.7631  22.2869    7.0310  102.2093   32.3550
+Stamina    41.8853    38.2474  41.7948   35.7453   32.3550  119.5685
 
 --- c. Ma trận tương quan mẫu R (Correlation Matrix):
            Passing  Defending  Vision  Shooting    Pace  Stamina
-Passing     1.0000     0.5972  0.8913    0.7264  0.3027   0.4175
-Defending   0.5972     1.0000  0.5414    0.3771  0.1044   0.3732
-Vision      0.8913     0.5414  1.0000    0.6636  0.2372   0.4098
-Shooting    0.7264     0.3771  0.6636    1.0000  0.0999   0.4545
-Pace        0.3027     0.1044  0.2372    0.0999  1.0000   0.2927
-Stamina     0.4175     0.3732  0.4098    0.4545  0.2927   1.0000
+Passing     1.0000     0.5973  0.8913    0.7256  0.3004   0.4165
+Defending   0.5973     1.0000  0.5415    0.3772  0.1030   0.3732
+Vision      0.8913     0.5415  1.0000    0.6627  0.2350   0.4074
+Shooting    0.7256     0.3772  0.6627    1.0000  0.0965   0.4535
+Pace        0.3004     0.1030  0.2350    0.0965  1.0000   0.2927
+Stamina     0.4165     0.3732  0.4074    0.4535  0.2927   1.0000
 
---- d. Phương sai tổng quát (Generalized Variance |S|): 1.5235e+10
+--- d. Phương sai tổng quát (Generalized Variance |S|): 1.5052e+10
 
-=> Đã lưu bảng vector trung bình theo nhóm vào: C:\Users\maigi\OneDrive\Desktop\huit_data\pttknc_detai19\results\mean_by_group.csv
-=> Đã lưu ma trận hiệp phương sai theo nhóm vào: C:\Users\maigi\OneDrive\Desktop\huit_data\pttknc_detai19\results\cov_by_group.csv
-=> Đã lưu ma trận tương quan theo nhóm vào: C:\Users\maigi\OneDrive\Desktop\huit_data\pttknc_detai19\results\corr_by_group.csv
+=> Đã lưu bảng vector trung bình theo nhóm vào: C:\Users\maigi\Downloads\pttknc_detai19_Da_sua_HZ\pttknc_detai19\results\mean_by_group.csv
+=> Đã lưu ma trận hiệp phương sai theo nhóm vào: C:\Users\maigi\Downloads\pttknc_detai19_Da_sua_HZ\pttknc_detai19\results\cov_by_group.csv
+=> Đã lưu ma trận tương quan theo nhóm vào: C:\Users\maigi\Downloads\pttknc_detai19_Da_sua_HZ\pttknc_detai19\results\corr_by_group.csv
 
 --------------------------------------------------------------------------------
 >>> KIỂM ĐỊNH TÍNH CHUẨN ĐA BIẾN THEO TỪNG NHÓM (HENZE-ZIRKLER TEST - alpha=0.05) <<<
 --------------------------------------------------------------------------------
 
-* Nhóm Defender (N = 6,225):
-  - Giá trị thống kê HZ (HZ-Statistic): 6110.7726
+* Nhóm Defender (N = 6,182):
+  - Giá trị thống kê HZ (HZ-Statistic): 3.8395
   - Giá trị p-value: 0.0000e+00 (Hiển thị: < 0.001)
   - Có tuân theo chuẩn đa biến không (normal): False
   - Kết luận: KHÔNG tuân theo chuẩn đa biến
 
-* Nhóm Midfielder (N = 7,037):
-  - Giá trị thống kê HZ (HZ-Statistic): 6915.0477
+* Nhóm Midfielder (N = 6,986):
+  - Giá trị thống kê HZ (HZ-Statistic): 3.8369
   - Giá trị p-value: 0.0000e+00 (Hiển thị: < 0.001)
   - Có tuân theo chuẩn đa biến không (normal): False
   - Kết luận: KHÔNG tuân theo chuẩn đa biến
 
-* Nhóm Forward (N = 3,124):
-  - Giá trị thống kê HZ (HZ-Statistic): 3045.4217
-  - Giá trị p-value: 0.0000e+00 (Hiển thị: < 0.001)
+* Nhóm Forward (N = 3,107):
+  - Giá trị thống kê HZ (HZ-Statistic): 2.4419
+  - Giá trị p-value: 1.0927e-275 (Hiển thị: < 0.001)
   - Có tuân theo chuẩn đa biến không (normal): False
   - Kết luận: KHÔNG tuân theo chuẩn đa biến
 
-=> Đã lưu kết quả kiểm định HZ theo nhóm vào: C:\Users\maigi\OneDrive\Desktop\huit_data\pttknc_detai19\results\hz_normality_by_group.csv
+=> Đã lưu kết quả kiểm định HZ theo nhóm vào: C:\Users\maigi\Downloads\pttknc_detai19_Da_sua_HZ\pttknc_detai19\results\hz_normality_by_group.csv
 
 --------------------------------------------------------------------------------
 >>> KIỂM ĐỊNH TÍNH ĐỒNG NHẤT CỦA MA TRẬN HIỆP PHƯƠNG SAI (BOX'S M TEST) <<<
 --------------------------------------------------------------------------------
 
 --- BẢNG THỐNG KÊ CHI TIẾT BOX'S M TEST:
-  + Thống kê Box's M (M): 9323.1828
-  + Hệ số hiệu chỉnh (c): 0.999405
-  + Thống kê Chi-square xấp xỉ (Chi2): 9317.6316
+  + Thống kê Box's M (M): 9309.7056
+  + Hệ số hiệu chỉnh (c): 0.999401
+  + Thống kê Chi-square xấp xỉ (Chi2): 9304.1281
   + Bậc tự do (df): 42
   + p-value: 0.0000e+00 (Hiển thị: < 0.001)
   + Mức ý nghĩa alpha: 0.05
   + KẾT LUẬN: p-value < 0.05 => Bác bỏ giả thuyết H0.
     Ma trận hiệp phương sai giữa 3 nhóm vị trí thi đấu KHÔNG ĐỒNG NHẤT (Heteroscedasticity).
   + GHI CHÚ QUAN TRỌNG (A7):
-    - Kiểm định Box's M cực kỳ nhạy cảm với kích thước mẫu lớn (ở đây n = 16,386 mẫu) và
+    - Kiểm định Box's M cực kỳ nhạy cảm với kích thước mẫu lớn (ở đây n = 16,275 mẫu) và
       sự sai lệch nhỏ so với phân phối chuẩn đa biến, dẫn đến việc p-value hầu như luôn đạt ý nghĩa thống kê.
     - Do giả định đồng nhất ma trận hiệp phương sai bị vi phạm, trong kết quả phân tích MANOVA,
       chúng ta dựa chủ yếu vào tiêu chuẩn Pillai's Trace thay vì Wilks' Lambda.
       Pillai's Trace là tiêu chuẩn bền vững nhất (most robust) trước vi phạm giả định đồng nhất hiệp phương sai.
 
-=> Đã lưu kết quả kiểm định Box's M vào: C:\Users\maigi\OneDrive\Desktop\huit_data\pttknc_detai19\results\box_m_test.csv
+=> Đã lưu kết quả kiểm định Box's M vào: C:\Users\maigi\Downloads\pttknc_detai19_Da_sua_HZ\pttknc_detai19\results\box_m_test.csv
 
 ================================================================================
 MỤC 3.3, 3.4 & 4.1: THỰC THI MÔ HÌNH MANOVA 1 NHÂN TỐ
@@ -187,155 +151,198 @@ MỤC 3.3, 3.4 & 4.1: THỰC THI MÔ HÌNH MANOVA 1 NHÂN TỐ
 
 --- BẢNG TỔNG HỢP 4 TIÊU CHUẨN KIỂM ĐỊNH MANOVA (Position_Group): ---
                            Value Num DF        Den DF      F Value Pr > F
-Wilks' lambda            0.19373     12       32756.0  3472.034463    0.0
-Pillai's trace          0.995769   12.0       32758.0  2706.832641    0.0
-Hotelling-Lawley trace  3.183653     12  25473.802657  4344.966076    0.0
-Roy's greatest root     2.839123      6         16379  7750.333212    0.0
+Wilks' lambda           0.193829     12       32534.0  3446.937868    0.0
+Pillai's trace          0.995192   12.0       32536.0  2685.388417    0.0
+Hotelling-Lawley trace  3.183995     12  25301.135991  4315.980887    0.0
+Roy's greatest root       2.8407      6         16268  7702.085393    0.0
 
 --------------------------------------------------------------------------------
 >>> CHI TIẾT 4 TIÊU CHUẨN KIỂM ĐỊNH MANOVA CHO BÁO CÁO (alpha = 0.05) <<<
 --------------------------------------------------------------------------------
 
 * Tiêu chuẩn: Wilks' lambda
-  - Giá trị kiểm định (Value): 0.193730
-  - Thống kê F (F Value): 3472.0345
+  - Giá trị kiểm định (Value): 0.193829
+  - Thống kê F (F Value): 3446.9379
   - Bậc tự do tử số (Num DF): 12
-  - Bậc tự do mẫu số (Den DF): 32756.0
+  - Bậc tự do mẫu số (Den DF): 32534.0
   - p-value (Pr > F): 0.0000e+00 (Hiển thị: < 0.001)
   - Giá trị tới hạn F (F Critical alpha=0.05): 1.7525
   - Quy tắc quyết định (Decision Rule): F > F_critical => bác bỏ H0
   - Kết luận: Bác bỏ H0
 
 * Tiêu chuẩn: Pillai's trace
-  - Giá trị kiểm định (Value): 0.995769
-  - Thống kê F (F Value): 2706.8326
+  - Giá trị kiểm định (Value): 0.995192
+  - Thống kê F (F Value): 2685.3884
   - Bậc tự do tử số (Num DF): 12
-  - Bậc tự do mẫu số (Den DF): 32758.0
+  - Bậc tự do mẫu số (Den DF): 32536.0
   - p-value (Pr > F): 0.0000e+00 (Hiển thị: < 0.001)
   - Giá trị tới hạn F (F Critical alpha=0.05): 1.7525
   - Quy tắc quyết định (Decision Rule): F > F_critical => bác bỏ H0
   - Kết luận: Bác bỏ H0
 
 * Tiêu chuẩn: Hotelling-Lawley trace
-  - Giá trị kiểm định (Value): 3.183653
-  - Thống kê F (F Value): 4344.9661
+  - Giá trị kiểm định (Value): 3.183995
+  - Thống kê F (F Value): 4315.9809
   - Bậc tự do tử số (Num DF): 12
-  - Bậc tự do mẫu số (Den DF): 25473.8
+  - Bậc tự do mẫu số (Den DF): 25301.1
   - p-value (Pr > F): 0.0000e+00 (Hiển thị: < 0.001)
   - Giá trị tới hạn F (F Critical alpha=0.05): 1.7526
   - Quy tắc quyết định (Decision Rule): F > F_critical => bác bỏ H0
   - Kết luận: Bác bỏ H0
 
 * Tiêu chuẩn: Roy's greatest root
-  - Giá trị kiểm định (Value): 2.839123
-  - Thống kê F (F Value): 7750.3332
+  - Giá trị kiểm định (Value): 2.840700
+  - Thống kê F (F Value): 7702.0854
   - Bậc tự do tử số (Num DF): 6
-  - Bậc tự do mẫu số (Den DF): 16379.0
+  - Bậc tự do mẫu số (Den DF): 16268.0
   - p-value (Pr > F): 0.0000e+00 (Hiển thị: < 0.001)
-  - Giá trị tới hạn F (F Critical alpha=0.05): 2.0991
+  - Giá trị tới hạn F (F Critical alpha=0.05): 2.0992
   - Quy tắc quyết định (Decision Rule): F > F_critical => bác bỏ H0
   - Kết luận: Bác bỏ H0
 
-=> Đã lưu kết quả 4 tiêu chuẩn MANOVA vào: C:\Users\maigi\OneDrive\Desktop\huit_data\pttknc_detai19\results\manova_results.csv
+=> Đã lưu kết quả 4 tiêu chuẩn MANOVA vào: C:\Users\maigi\Downloads\pttknc_detai19_Da_sua_HZ\pttknc_detai19\results\manova_results.csv
 
 ================================================================================
 A2: ANOVA 1 CHIỀU VÀ POST-HOC TUKEY HSD CHO TỪNG BIẾN KỸ THUẬT
 ================================================================================
 
 >>> BIẾN: PASSING <<<
-  + ANOVA F-statistic: 2111.1477, p-value: 0.0000e+00 (Hiển thị: < 0.001)
-  + Eta-squared (eta^2): 0.2049 (20.49% phương sai được giải thích bởi nhóm vị trí)
+  + ANOVA F-statistic: 2094.0942, p-value: 0.0000e+00 (Hiển thị: < 0.001)
+  + Eta-squared (eta^2): 0.2047 (20.47% phương sai được giải thích bởi nhóm vị trí)
   + Kết quả Post-hoc Tukey HSD:
   Multiple Comparison of Means - Tukey HSD, FWER=0.05  
 =======================================================
  group1    group2   meandiff p-adj lower  upper  reject
 -------------------------------------------------------
-Defender    Forward   2.0409   0.0 1.5899 2.4919   True
-Defender Midfielder   9.5604   0.0 9.2025 9.9183   True
- Forward Midfielder   7.5195   0.0 7.0773 7.9617   True
+Defender    Forward   2.0478   0.0  1.596 2.4995   True
+Defender Midfielder   9.5451   0.0 9.1864 9.9038   True
+ Forward Midfielder   7.4974   0.0 7.0544 7.9403   True
 -------------------------------------------------------
 
 >>> BIẾN: DEFENDING <<<
-  + ANOVA F-statistic: 8956.9548, p-value: 0.0000e+00 (Hiển thị: < 0.001)
-  + Eta-squared (eta^2): 0.5223 (52.23% phương sai được giải thích bởi nhóm vị trí)
+  + ANOVA F-statistic: 8922.3655, p-value: 0.0000e+00 (Hiển thị: < 0.001)
+  + Eta-squared (eta^2): 0.5230 (52.30% phương sai được giải thích bởi nhóm vị trí)
   + Kết quả Post-hoc Tukey HSD:
     Multiple Comparison of Means - Tukey HSD, FWER=0.05    
 ===========================================================
  group1    group2   meandiff p-adj  lower    upper   reject
 -----------------------------------------------------------
-Defender    Forward -32.4582   0.0   -33.03 -31.8864   True
-Defender Midfielder -13.3832   0.0 -13.8369 -12.9295   True
- Forward Midfielder   19.075   0.0  18.5144  19.6356   True
+Defender    Forward -32.4233   0.0 -32.9955  -31.851   True
+Defender Midfielder -13.3727   0.0 -13.8271 -12.9184   True
+ Forward Midfielder  19.0505   0.0  18.4894  19.6116   True
 -----------------------------------------------------------
 
 >>> BIẾN: VISION <<<
-  + ANOVA F-statistic: 4116.9333, p-value: 0.0000e+00 (Hiển thị: < 0.001)
-  + Eta-squared (eta^2): 0.3345 (33.45% phương sai được giải thích bởi nhóm vị trí)
+  + ANOVA F-statistic: 4082.8973, p-value: 0.0000e+00 (Hiển thị: < 0.001)
+  + Eta-squared (eta^2): 0.3341 (33.41% phương sai được giải thích bởi nhóm vị trí)
   + Kết quả Post-hoc Tukey HSD:
    Multiple Comparison of Means - Tukey HSD, FWER=0.05   
 =========================================================
  group1    group2   meandiff p-adj  lower   upper  reject
 ---------------------------------------------------------
-Defender    Forward   9.8587   0.0  9.3401 10.3772   True
-Defender Midfielder  15.8821   0.0 15.4705 16.2936   True
- Forward Midfielder   6.0234   0.0  5.5149  6.5319   True
+Defender    Forward   9.8574   0.0   9.338 10.3768   True
+Defender Midfielder  15.8494   0.0 15.4369 16.2618   True
+ Forward Midfielder    5.992   0.0  5.4827  6.5013   True
 ---------------------------------------------------------
 
 >>> BIẾN: SHOOTING <<<
-  + ANOVA F-statistic: 8607.9272, p-value: 0.0000e+00 (Hiển thị: < 0.001)
-  + Eta-squared (eta^2): 0.5124 (51.24% phương sai được giải thích bởi nhóm vị trí)
+  + ANOVA F-statistic: 8552.3664, p-value: 0.0000e+00 (Hiển thị: < 0.001)
+  + Eta-squared (eta^2): 0.5125 (51.25% phương sai được giải thích bởi nhóm vị trí)
   + Kết quả Post-hoc Tukey HSD:
    Multiple Comparison of Means - Tukey HSD, FWER=0.05   
 =========================================================
  group1    group2   meandiff p-adj  lower   upper  reject
 ---------------------------------------------------------
-Defender    Forward  24.7312   0.0 24.2362 25.2262   True
-Defender Midfielder  17.2604   0.0 16.8675 17.6532   True
- Forward Midfielder  -7.4708   0.0 -7.9562 -6.9854   True
+Defender    Forward  24.7208   0.0 24.2248 25.2169   True
+Defender Midfielder  17.2339   0.0 16.8401 17.6278   True
+ Forward Midfielder  -7.4869   0.0 -7.9733 -7.0005   True
 ---------------------------------------------------------
 
 >>> BIẾN: PACE <<<
-  + ANOVA F-statistic: 399.7805, p-value: 3.0291e-170 (Hiển thị: < 0.001)
-  + Eta-squared (eta^2): 0.0465 (4.65% phương sai được giải thích bởi nhóm vị trí)
+  + ANOVA F-statistic: 397.9736, p-value: 1.8050e-169 (Hiển thị: < 0.001)
+  + Eta-squared (eta^2): 0.0466 (4.66% phương sai được giải thích bởi nhóm vị trí)
   + Kết quả Post-hoc Tukey HSD:
    Multiple Comparison of Means - Tukey HSD, FWER=0.05   
 =========================================================
  group1    group2   meandiff p-adj  lower   upper  reject
 ---------------------------------------------------------
-Defender    Forward   5.8606   0.0  5.3188  6.4024   True
-Defender Midfielder   4.0415   0.0  3.6115  4.4714   True
- Forward Midfielder  -1.8191   0.0 -2.3504 -1.2879   True
+Defender    Forward   5.8669   0.0  5.3235  6.4102   True
+Defender Midfielder   4.0437   0.0  3.6123  4.4752   True
+ Forward Midfielder  -1.8231   0.0 -2.3559 -1.2903   True
 ---------------------------------------------------------
 
 >>> BIẾN: STAMINA <<<
-  + ANOVA F-statistic: 147.1453, p-value: 4.6004e-64 (Hiển thị: < 0.001)
+  + ANOVA F-statistic: 145.6867, p-value: 1.9448e-63 (Hiển thị: < 0.001)
   + Eta-squared (eta^2): 0.0176 (1.76% phương sai được giải thích bởi nhóm vị trí)
   + Kết quả Post-hoc Tukey HSD:
    Multiple Comparison of Means - Tukey HSD, FWER=0.05    
 ==========================================================
  group1    group2   meandiff p-adj   lower   upper  reject
 ----------------------------------------------------------
-Defender    Forward  -3.6893    0.0 -4.2571 -3.1215   True
-Defender Midfielder    0.144 0.7343 -0.3066  0.5946  False
- Forward Midfielder   3.8333    0.0  3.2766  4.3901   True
+Defender    Forward  -3.6976    0.0 -4.2671 -3.1282   True
+Defender Midfielder   0.1154 0.8211 -0.3368  0.5675  False
+ Forward Midfielder    3.813    0.0  3.2546  4.3714   True
 ----------------------------------------------------------
 
-=> Đã lưu thành công kết quả ANOVA và Tukey HSD vào: C:\Users\maigi\OneDrive\Desktop\huit_data\pttknc_detai19\results\anova_posthoc.csv
+=> Đã lưu thành công kết quả ANOVA và Tukey HSD vào: C:\Users\maigi\Downloads\pttknc_detai19_Da_sua_HZ\pttknc_detai19\results\anova_posthoc.csv
+
+--------------------------------------------------------------------------------
+>>> KẾT QUẢ KIỂM ĐỊNH 6 ANOVA VỚI HIỆU CHỈNH HOLM (alpha = 0.05) <<<
+--------------------------------------------------------------------------------
+ Variable   ANOVA_F       p_raw      p_holm  Reject_Holm (alpha=0.05)  Eta_Squared
+  Passing 2094.0942  0.0000e+00  0.0000e+00                      True       0.2047
+Defending 8922.3655  0.0000e+00  0.0000e+00                      True       0.5230
+   Vision 4082.8973  0.0000e+00  0.0000e+00                      True       0.3341
+ Shooting 8552.3664  0.0000e+00  0.0000e+00                      True       0.5125
+     Pace  397.9736 1.8050e-169 3.6099e-169                      True       0.0466
+  Stamina  145.6867  1.9448e-63  1.9448e-63                      True       0.0176
+
+=> Đã lưu kết quả ANOVA Holm vào: C:\Users\maigi\Downloads\pttknc_detai19_Da_sua_HZ\pttknc_detai19\results\anova_holm.csv
+
+================================================================================
+YÊU CẦU 2: PHÂN TÍCH ĐỘ NHẠY - SO SÁNH 2 PHƯƠNG PHÁP LỌC NGOẠI LAI MAHALANOBIS
+================================================================================
+Reading dataset from: C:\Users\maigi\Downloads\pttknc_detai19_Da_sua_HZ\pttknc_detai19\archive\Fifa 23 Players Data.csv
+1. Tổng số dòng dữ liệu thô ban đầu: 18,539
+2. Loại dòng trùng: loại 119 dòng (còn lại 18,420 dòng)
+3. Loại bỏ giá trị khuyết thiếu (dropna): loại 0 dòng (còn lại 18,420 dòng)
+4. Loại bỏ thủ môn (GK): loại 2,053 dòng (còn lại 16,367 dòng)
+5. Loại vị trí ngoài 3 nhóm chính: loại 0 dòng (còn lại 16,367 dòng)
+
+--- BẢNG SO SÁNH 2 PHƯƠNG PHÁP LỌC NGOẠI LAI (sensitivity_outlier_method.csv): ---
+                               Method  N_Total  N_Defender  N_Midfielder  N_Forward  Outliers_Removed  Wilks_Lambda   Wilks_F    Wilks_p  Pillai_Trace  Pillai_F   Pillai_p  Hotelling_Lawley      HL_F       HL_p  Roy_Root     Roy_F      Roy_p     Box_M  Box_M_Chi2    Box_M_p  Eta2_Passing  Eta2_Defending  Eta2_Vision  Eta2_Shooting  Eta2_Pace  Eta2_Stamina Strongest_Variable  MANOVA_Reject_H0
+          Cách chính: Mahalanobis gộp    16275        6182          6986       3107                92      0.193829 3446.9379 0.0000e+00      0.995192 2685.3884 0.0000e+00          3.183995 4315.9809 0.0000e+00  2.840700 7702.0854 0.0000e+00 9309.7056   9304.1281 0.0000e+00        0.2047           0.523       0.3341         0.5125     0.0466        0.0176          Defending              True
+Cách phụ: Mahalanobis riêng từng nhóm    16256        6198          6958       3100               111      0.191082 3486.9642 0.0000e+00      1.000325 2709.9281 0.0000e+00          3.231655 4375.4680 0.0000e+00  2.884368 7811.3503 0.0000e+00 9749.3632   9743.5139 0.0000e+00        0.2060           0.526       0.3378         0.5140     0.0476        0.0181          Defending              True
+
+--- NHẬN XÉT SO SÁNH ĐỘ NHẠY (SENSITIVITY ANALYSIS):
+1. Cỡ mẫu và số ngoại lai bị loại:
+   - Cách chính (gộp 3 nhóm): Loại 92 ngoại lai, còn lại 16,275 quan trắc (Midfielder: 6,986, Defender: 6,182, Forward: 3,107).
+   - Cách phụ (riêng từng nhóm): Loại 111 ngoại lai, còn lại 16,256 quan trắc (Midfielder: 6,958, Defender: 6,198, Forward: 3,100).
+2. Kết luận kiểm định MANOVA:
+   - Cả 4 tiêu chuẩn (Wilks' lambda, Pillai's trace, Hotelling-Lawley, Roy's root) ở cả 2 phương pháp đều có p-value < 0.001.
+   - Kết luận: BÁC BỎ H0 hoàn toàn KHÔNG THAY ĐỔI giữa 2 phương pháp.
+3. Giả định đồng nhất hiệp phương sai (Box's M):
+   - Cả 2 cách đều bác bỏ H0 (p < 0.001), khẳng định tính đúng đắn khi sử dụng Pillai's trace làm tiêu chuẩn kiểm định chính.
+4. Thứ tự kích thước hiệu ứng (Eta-squared):
+   - Thứ tự đóng góp của 6 biến kỹ thuật hoàn toàn TRÙNG KHỚP giữa 2 phương pháp:
+     Defending (mạnh nhất: ~0.523 vs 0.526) > Shooting (~0.512 vs 0.514) > Vision (~0.334 vs 0.338) > Passing (~0.205 vs 0.206) > Pace (~0.047 vs 0.048) > Stamina (~0.018 vs 0.018).
+   - Biến phân tách mạnh nhất vẫn là Defending (hoàn toàn KHÔNG ĐỔI).
+=> Đã lưu bảng so sánh độ nhạy vào: C:\Users\maigi\Downloads\pttknc_detai19_Da_sua_HZ\pttknc_detai19\results\sensitivity_outlier_method.csv
 
 ================================================================================
 MỤC 4.2: TRỰC QUAN HÓA DỮ LIỆU ĐA BIẾN (XUẤT FILE ẢNH DPI 300 VÀO output/)
 ================================================================================
-=> Đã lưu thành công Biểu đồ 1: C:\Users\maigi\OneDrive\Desktop\huit_data\pttknc_detai19\output\hinh_4_1_heatmap.png (DPI 300)
-=> Đã lưu thành công Biểu đồ 2: C:\Users\maigi\OneDrive\Desktop\huit_data\pttknc_detai19\output\hinh_4_2_scatter_ellipse.png (DPI 300)
+=> Đã lưu thành công Biểu đồ 1: C:\Users\maigi\Downloads\pttknc_detai19_Da_sua_HZ\pttknc_detai19\output\hinh_4_1_heatmap.png (DPI 300)
+=> Đã lưu thành công Biểu đồ 2: C:\Users\maigi\Downloads\pttknc_detai19_Da_sua_HZ\pttknc_detai19\output\hinh_4_2_scatter_ellipse.png (DPI 300)
 
 --- Đang tạo Hình 4.3: Pairplot 6 biến (mẫu ngẫu nhiên n = 1,500)... ---
-=> Đã lưu thành công Biểu đồ 3: C:\Users\maigi\OneDrive\Desktop\huit_data\pttknc_detai19\output\hinh_4_3_pairplot.png (DPI 300)
+=> Đã lưu thành công Biểu đồ 3: C:\Users\maigi\Downloads\pttknc_detai19_Da_sua_HZ\pttknc_detai19\output\hinh_4_3_pairplot.png (DPI 300)
 
---- Đang tạo Hình 4.4: Q-Q plot khoảng cách Mahalanobis bình phương theo từng nhóm... ---
-=> Đã lưu thành công Biểu đồ 4: C:\Users\maigi\OneDrive\Desktop\huit_data\pttknc_detai19\output\hinh_4_4_qq_mahalanobis.png (DPI 300)
+--- Đang tạo Hình 3.1: Q-Q plot khoảng cách Mahalanobis bình phương theo từng nhóm... ---
+=> Đã lưu thành công Hình 3.1: C:\Users\maigi\Downloads\pttknc_detai19_Da_sua_HZ\pttknc_detai19\output\hinh_3_1_qq_mahalanobis.png (DPI 300)
 
 ================================================================================
 HOÀN THÀNH TOÀN BỘ CHƯƠNG TRÌNH PHÂN TÍCH THỐNG KÊ ĐA BIẾN!
-Toàn bộ bảng số liệu đã được lưu trong: C:\Users\maigi\OneDrive\Desktop\huit_data\pttknc_detai19\results
-Toàn bộ file hình ảnh đã được lưu trong: C:\Users\maigi\OneDrive\Desktop\huit_data\pttknc_detai19\output
+Toàn bộ bảng số liệu đã được lưu trong: C:\Users\maigi\Downloads\pttknc_detai19_Da_sua_HZ\pttknc_detai19\results
+Toàn bộ file hình ảnh đã được lưu trong: C:\Users\maigi\Downloads\pttknc_detai19_Da_sua_HZ\pttknc_detai19\output
 ================================================================================

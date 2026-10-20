@@ -53,12 +53,13 @@ python FiFa_clean.py
 *(Nếu đứng từ thư mục cha: `python pttknc_detai19/FiFa_clean.py`)*
 
 * **Chức năng:**
-  * Đọc dữ liệu từ `archive/Fifa 23 Players Data.csv`.
+  * Đọc dữ liệu từ `archive/Fifa 23 Players Data.csv` (đầy đủ các cột).
+  * Loại bỏ dòng trùng lặp trên toàn bộ các cột bằng `df.drop_duplicates()`.
   * Loại bỏ dữ liệu khuyết thiếu (`dropna`) và lọc bỏ thủ môn (`GK`).
   * Chuẩn hóa vị trí thi đấu thành 3 nhóm: `Defender`, `Midfielder`, `Forward`.
   * Tính khoảng cách Mahalanobis bình phương ($D_M^2$) trên không gian 6 chiều và loại bỏ ngoại lai đa biến theo ngưỡng Chi-bình phương ($\alpha = 0.001, df = 6$).
 * **Kết quả đầu ra:**
-  * File dữ liệu sạch: `fifa_cleaned_no_outliers.csv` ($16,386$ dòng).
+  * File dữ liệu sạch: `fifa_cleaned_no_outliers.csv` ($16,275$ dòng).
   * Bảng thống kê số dòng bị loại qua từng bước: `results/cleaning_summary.csv`.
 
 > **GHI CHÚ QUAN TRỌNG:** Nếu bạn muốn thực hiện làm sạch dữ liệu lại từ đầu (ví dụ thay đổi ngưỡng lọc ngoại lai), chỉ cần xóa file `fifa_cleaned_no_outliers.csv` rồi chạy lại lệnh trên.
@@ -77,7 +78,8 @@ python fifa_analysis.py
   * Kiểm định tính chuẩn đa biến Henze-Zirkler (**HZ Test**) theo từng nhóm.
   * Kiểm định tính đồng nhất ma trận hiệp phương sai (**Box's M Test**).
   * Thực thi mô hình **MANOVA 1 nhân tố** (Wilks' lambda, Pillai's trace, Hotelling-Lawley, Roy's largest root), tính giá trị tới hạn $F_{critical}$ ($\alpha = 0.05$) và quy tắc quyết định.
-  * Thực hiện **ANOVA 1 chiều** cho từng biến, tính $\eta^2$ (eta-squared) và kiểm định so sánh cặp **Post-hoc Tukey HSD**.
+  * Thực hiện **ANOVA 1 chiều** cho từng biến, hiệu chỉnh đa so sánh **Holm** (`results/anova_holm.csv`), tính $\eta^2$ (eta-squared) và kiểm định so sánh cặp **Post-hoc Tukey HSD** (`results/anova_posthoc.csv`).
+  * Thực hiện **Phân tích độ nhạy** so sánh 2 cách lọc ngoại lai Mahalanobis (gộp cả 3 nhóm vs riêng từng nhóm) lưu tại `results/sensitivity_outlier_method.csv`.
   * Xuất 4 bộ biểu đồ độ phân giải cao (300 DPI) vào thư mục `output/`.
   * Ghi toàn bộ kết quả bảng biểu vào `results/` và log terminal vào `results/output.txt`.
 
@@ -110,18 +112,30 @@ Trong bảng kết quả `results/anova_posthoc.csv`:
 ## 5. Ý nghĩa các file đầu ra
 
 ### Thư mục hình ảnh: `output/` (300 DPI)
+* `hinh_3_1_qq_mahalanobis.png`: Biểu đồ Q-Q plot của khoảng cách Mahalanobis bình phương ($D_M^2$) theo từng nhóm so với phân phối lý thuyết $\chi^2(df=6)$.
 * `hinh_4_1_heatmap.png`: Ma trận tương quan Pearson toàn bộ mẫu và 3 ô con chi tiết theo từng nhóm vị trí (Defender, Midfielder, Forward).
-* `hinh_4_2_scatter_ellipse.png`: Phân tách không gian Defending - Shooting kèm Elip tin cậy 95% và tọa độ tâm cụm.
+* `hinh_4_2_scatter_ellipse.png`: Phân tách không gian Defending - Shooting kèm Elip phân tán theo mô hình chuẩn, mức danh nghĩa 95% (mô tả độ phân tán của các cá thể cầu thủ, không phải khoảng tin cậy của trung bình) và tọa độ tâm cụm.
 * `hinh_4_3_pairplot.png`: Ma trận quan hệ cặp (Pairplot) giữa 6 biến kỹ thuật tô màu theo 3 nhóm vị trí ($n = 1,500$ mẫu ngẫu nhiên).
-* `hinh_4_4_qq_mahalanobis.png`: Biểu đồ Q-Q plot của khoảng cách Mahalanobis bình phương ($D_M^2$) theo từng nhóm so với phân phối lý thuyết $\chi^2(df=6)$.
 
 ### Thư mục bảng số liệu & báo cáo: `results/`
-* `cleaning_summary.csv`: Thống kê số lượng dòng dữ liệu bị loại ở từng bước tiền xử lý và tỷ lệ tương ứng.
+* `cleaning_summary.csv`: Thống kê số lượng dòng dữ liệu bị loại ở từng bước tiền xử lý (Dữ liệu thô, Loại dòng trùng, dropna, GK, ngoài 3 nhóm, lọc ngoại lai) và tỷ lệ tương ứng.
 * `mean_by_group.csv`: Bảng vector trung bình mẫu của 6 biến kỹ thuật theo 3 nhóm vị trí thi đấu.
 * `cov_by_group.csv`: Ma trận hiệp phương sai mẫu $S$ cho từng nhóm vị trí.
 * `corr_by_group.csv`: Ma trận hệ số tương quan mẫu $R$ cho từng nhóm vị trí.
 * `hz_normality_by_group.csv`: Kết quả kiểm định tính chuẩn đa biến Henze-Zirkler theo từng nhóm vị trí kèm cột `p_display`.
 * `box_m_test.csv`: Bảng thống kê kiểm định tính đồng nhất ma trận hiệp phương sai Box's M kèm cột `p_display`.
 * `manova_results.csv`: Bảng tổng hợp 4 tiêu chuẩn kiểm định MANOVA kèm $F_{critical}$, `Decision_Rule` và `p_display`.
+* `anova_holm.csv`: Kết quả kiểm định 6 ANOVA 1 chiều kèm hiệu chỉnh đa giả thuyết Holm (`p_raw`, `p_holm`, `Reject_Holm (alpha=0.05)`, $\eta^2$).
 * `anova_posthoc.csv`: Kết quả ANOVA 1 chiều, $\eta^2$ và Post-hoc Tukey HSD so sánh từng cặp vị trí kèm `p_display`.
+* `sensitivity_outlier_method.csv`: Bảng phân tích độ nhạy so sánh 2 phương pháp lọc ngoại lai Mahalanobis (Gộp 3 nhóm vs Riêng từng nhóm).
 * `output.txt`: Toàn bộ nội dung hiển thị terminal trong suốt quá trình chạy `fifa_analysis.py`.
+
+
+## 6. Cập nhật đầu vào kiểm định HZ ngày 15/10/2026
+
+- Đã chuyển sáu cột thuộc tính sang `float64` ngay trước khi gọi `pg.multivariate_normality`. Cách này tránh mất phần thập phân khi thư viện pingouin 0.7.0 ép ma trận nghịch đảo về kiểu số nguyên của đầu vào.
+- Đã chạy lại `FiFa_clean.py`, sau đó `fifa_analysis.py` từ đầu để tạo lại dữ liệu sạch, 10 CSV kết quả, toàn bộ hình và `results/output.txt`.
+- HZ đã sửa: Defender = 3.8395; Midfielder = 3.8369; Forward = 2.4419. Cả ba nhóm vẫn bác bỏ giả thuyết chuẩn đa biến ở mức 0.05.
+- Các bảng còn lại khớp số liệu đã lưu của bản được cung cấp; dữ liệu sạch vẫn có 16,275 bản ghi. Dữ liệu gốc được giữ nguyên.
+- Môi trường chạy kiểm tra: Python 3.12.14; numpy 2.3.5; pandas 2.2.3; scipy 1.17.0; statsmodels 0.15.0; pingouin 0.7.0; matplotlib 3.10.8; seaborn 0.13.2. Đây là phiên bản thực tế đã dùng để tái chạy; `requirements.txt` của nhóm được giữ nguyên, nên một số phiên bản trong môi trường kiểm tra khác với các phiên bản ghim của nhóm.
+- Khi viết báo cáo, dùng HZ trong file kết quả mới, không dùng các thống kê HZ hàng nghìn của bản trước.

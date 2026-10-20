@@ -1,6 +1,0 @@
-Bước xử lý,Số dòng còn lại,Số dòng bị loại,Tỷ lệ loại trên tổng (%)
-1. Dữ liệu thô ban đầu,18539,0,0.0
-2. Loại bỏ giá trị khuyết (dropna),18539,0,0.0
-3. Loại bỏ thủ môn (GK),16478,2061,11.12
-4. Loại vị trí ngoài 3 nhóm chính,16478,0,0.0
-"5. Lọc ngoại lai Mahalanobis (chi2, df=6, alpha=0.001)",16386,92,0.5

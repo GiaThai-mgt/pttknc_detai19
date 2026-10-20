@@ -1,5 +1,5 @@
 Test_Statistic,Value,F_Value,Num_DF,Den_DF,Pr_F,Conclusion,F_Critical_0.05,Decision_Rule,p_display
-Wilks' lambda,0.19373,3472.0345,12,32756.0,0.0000e+00,Bác bỏ H0,1.7525,F > F_critical => bác bỏ H0,< 0.001
-Pillai's trace,0.995769,2706.8326,12,32758.0,0.0000e+00,Bác bỏ H0,1.7525,F > F_critical => bác bỏ H0,< 0.001
-Hotelling-Lawley trace,3.183653,4344.9661,12,25473.8,0.0000e+00,Bác bỏ H0,1.7526,F > F_critical => bác bỏ H0,< 0.001
-Roy's greatest root,2.839123,7750.3332,6,16379.0,0.0000e+00,Bác bỏ H0,2.0991,F > F_critical => bác bỏ H0,< 0.001
+Wilks' lambda,0.193829,3446.9379,12,32534.0,0.0000e+00,Bác bỏ H0,1.7525,F > F_critical => bác bỏ H0,< 0.001
+Pillai's trace,0.995192,2685.3884,12,32536.0,0.0000e+00,Bác bỏ H0,1.7525,F > F_critical => bác bỏ H0,< 0.001
+Hotelling-Lawley trace,3.183995,4315.9809,12,25301.1,0.0000e+00,Bác bỏ H0,1.7526,F > F_critical => bác bỏ H0,< 0.001
+Roy's greatest root,2.8407,7702.0854,6,16268.0,0.0000e+00,Bác bỏ H0,2.0992,F > F_critical => bác bỏ H0,< 0.001
